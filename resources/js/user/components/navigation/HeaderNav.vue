@@ -11,6 +11,11 @@
                 </b-navbar-nav>
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
+                    <b-nav-item href="#">
+                        <div class="user-login-info">
+                            <algolia-search app-id="IU7XN041GR" api-key="cb4c7da0a62693a2075e065cf18f867d" index-name="products"></algolia-search>
+                        </div>
+                    </b-nav-item>
                     <template v-if="currentUser">
                         <b-nav-item href="#">
                             <div class="user-login-info">
@@ -88,128 +93,132 @@
     </header>
 </template>
 <script>
-import MegaMenu from "./MegaMenu";
-export default {
-  name: "headerNav",
-  components: {
-    appMenu: MegaMenu
-  },
-  computed: {
-    carts() {
-      return this.$store.getters.carts;
-    },
-    currentUser() {
-      if (this.$store.getters.currentUser) {
-        let expiration = this.$store.getters.currentUser.expires_in || 0;
-        if (Date.now() > parseInt(expiration)) {
-          this.logout();
-          return;
+    import MegaMenu from "./MegaMenu";
+    import AlgoliaSearch from "./AlgoliaSearch";
+    export default {
+        name: "headerNav",
+        components: {
+            appMenu: MegaMenu,
+            AlgoliaSearch
+        },
+        computed: {
+            carts() {
+                return this.$store.getters.carts;
+            },
+            currentUser() {
+                if (this.$store.getters.currentUser) {
+                    let expiration = this.$store.getters.currentUser.expires_in || 0;
+                    if (Date.now() > parseInt(expiration)) {
+                        this.logout();
+                        return;
+                    }
+                }
+                return this.$store.getters.currentUser;
+            },
+            count() {
+                return this.$store.getters.CountCart;
+            }
+        },
+        methods: {
+            logout() {
+                this.$store.commit("logout");
+            },
+            activeMega() {
+                this.$store.commit("activeMega");
+            },
+            removeItemFromCart(name) {
+                this.$store.commit("removeItemFromCart", name);
+            },
+            clearAll() {
+                this.$store.commit("clearAll");
+            },
+            Checkout() {
+                if (!this.currentUser) {
+                    this.$router.push({
+                        name: "Login",
+                        query: {
+                            redirect: "/checkout"
+                        }
+                    });
+                } else {
+                    this.$router.push({
+                        name: "Checkout"
+                    });
+                }
+                this.$refs.ConfiShop.hide();
+            }
         }
-      }
-      return this.$store.getters.currentUser;
-    },
-    count() {
-      return this.$store.getters.CountCart;
-    }
-  },
-  methods: {
-    logout() {
-      this.$store.commit("logout");
-    },
-    activeMega() {
-      this.$store.commit("activeMega");
-    },
-    removeItemFromCart(name) {
-      this.$store.commit("removeItemFromCart", name);
-    },
-    clearAll() {
-      this.$store.commit("clearAll");
-    },
-    Checkout() {
-      if (!this.currentUser) {
-        this.$router.push({
-          name: "Login",
-          query: {
-            redirect: "/checkout"
-          }
-        });
-      } else {
-        this.$router.push({
-          name: "Checkout"
-        });
-      }
-      this.$refs.ConfiShop.hide();
-    }
-  }
-};
+    };
+
 </script>
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
+    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
 
-.panel > .table-bordered,
-.panel > .table-responsive > .table-bordered {
-  border: 0;
-}
+    .panel>.table-bordered,
+    .panel>.table-responsive>.table-bordered {
+        border: 0;
+    }
 
-.cart_img {
-  width: 100px;
-  height: 100px;
-}
+    .cart_img {
+        width: 100px;
+        height: 100px;
+    }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 0.5s;
+    }
 
-.fade-enter,
+    .fade-enter,
     .fade-leave-to
 
     /* .fade-leave-active below version 2.1.8 */
- {
-  opacity: 0;
-}
+        {
+        opacity: 0;
+    }
 
-a .logo {
-  width: 100%;
-}
+    a .logo {
+        width: 100%;
+    }
 
-.user-login-info a {
-  position: relative;
-  z-index: 1;
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 90px;
-  flex: 0 0 90px;
-  width: 90px;
-  display: block;
-  text-align: center;
-  border-left: 1px solid #ebebeb;
-  height: 100%;
-  line-height: 80px;
-}
+    .user-login-info a {
+        position: relative;
+        z-index: 1;
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 90px;
+        flex: 0 0 90px;
+        width: 90px;
+        display: block;
+        text-align: center;
+        border-left: 1px solid #ebebeb;
+        height: 100%;
+        line-height: 80px;
+    }
 
-a .user {
-  max-width: 20px;
-}
+    a .user {
+        max-width: 20px;
+    }
 
-.cart-area {
-  position: relative;
-  z-index: 1;
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 90px;
-  flex: 0 0 90px;
-  width: 90px;
-  display: block;
-  text-align: center;
-  border-left: 1px solid #ebebeb;
-  height: 100%;
-  line-height: 80px;
-}
+    .cart-area {
+        position: relative;
+        z-index: 1;
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 90px;
+        flex: 0 0 90px;
+        width: 90px;
+        display: block;
+        text-align: center;
+        border-left: 1px solid #ebebeb;
+        height: 100%;
+        line-height: 80px;
+    }
 
-.cart-area span {
-  font-family: "Ubuntu", sans-serif;
-  font-size: 13px;
-  color: #0315ff;
-  font-weight: bolder;
-  top: -10px;
-}
+    .cart-area span {
+        font-family: "Ubuntu", sans-serif;
+        font-size: 13px;
+        color: #0315ff;
+        font-weight: bolder;
+        top: -10px;
+    }
+
 </style>

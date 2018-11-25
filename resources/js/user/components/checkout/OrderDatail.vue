@@ -30,7 +30,6 @@
                 <div class="col-12 mb-3">
                     <label for="coupon">Coupon <span>*</span></label><br>
                     <small class="text-danger" v-if="errorCoupon.coupon">{{ errorCoupon.coupon[0]}}</small>
-                    <small v-else class="text-danger">{{ errorCoupon }}</small>
                     <input type="text" v-model="coupon_codes" class="form-control mb-3" id="coupon">
                     <a class="btn essence-btn" @click="checkCoupon()" :disabled="loading">Apply</a>
                 </div>

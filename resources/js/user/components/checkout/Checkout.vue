@@ -40,9 +40,9 @@ export default {
     appPayementInfo: PayementInfo,
     appOrderDetails: OrderDetail
   },
-    beforeRouteLeave (to, from, next) {
-      this.$store.commit("initCheckout")
-      next()
+  beforeRouteLeave(to, from, next) {
+    this.$store.commit("initCheckout");
+    next();
   }
 };
 </script>

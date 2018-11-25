@@ -54,6 +54,10 @@ Route::get('order/status/{status?}', [
     'as' => 'order.get.status'
 ]);
 
+Route::get('/test', [
+    'uses' => 'OrderController@test',
+]);
+
 Route::apiResources([
     'products' => 'ProductController',
     'categories' => 'CategoryController',

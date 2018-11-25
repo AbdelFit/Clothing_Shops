@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
+    use Searchable;
     /**
      * The attributes that are mass assignable.
      *
@@ -33,6 +35,22 @@ class Product extends Model
     public function wishlists()
     {
         return $this->hasMany('App\Wishlist');
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+        $extraFields = [
+            'categories' => $this->categories->pluck('name')->toArray(),
+            'brands' => $this->brands->pluck('brand_name')->toArray(),
+            'images' => $this->images->pluck('file')->toArray(),
+        ];
+        return array_merge($array, $extraFields);
     }
 
 }

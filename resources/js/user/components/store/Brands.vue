@@ -20,11 +20,10 @@
 <script>
 export default {
   name: "brands",
-
   computed: {
     brand_name: {
       get() {
-        return this.$store.state.brand_name;
+        return this.$store.state.shop.brand_name;
       },
       set(value) {
         this.$store.commit("brandName", value);

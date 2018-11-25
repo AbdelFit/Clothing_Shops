@@ -5,8 +5,9 @@ export default {
         coupon_value: localStorage.getItem("coupon_value") || "",
         coupon_code: localStorage.getItem("coupon_code") || "",
         loading: false,
-        error_coupon: "",
-        errors: ""
+        error_coupon: 0,
+        errors: 0,
+        message: null
     },
     getters: {
         couponCode(state) {
@@ -23,7 +24,10 @@ export default {
         },
         errorsCheckout(state) {
             return state.errors
-        }
+        },
+        messageError(state) {
+            return state.message
+        },
     },
     mutations: {
         loadingState(state) {
@@ -55,9 +59,10 @@ export default {
         },
         orderFailed(state, payload) {
             state.loading = false
-            state.errors = payload.response.data.errors
+            if (payload.response.status === 422) {
+                state.errors = payload.response.data.errors
+            }
         }
-
     },
     actions: {
         loadingState({
@@ -82,6 +87,10 @@ export default {
             commit,
             rootState
         }, payload) {
+            payload.append('session_cart', JSON.stringify(rootState.cart.cart))
+            payload.append('coupon_value', rootState.checkout.coupon_value)
+            payload.append('coupon_code', rootState.checkout.coupon_code)
+            payload.append('total_cost', rootState.cart.totalCost)
             axios
                 .post("/api/orders", payload)
                 .then(() => {
