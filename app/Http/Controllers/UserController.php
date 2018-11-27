@@ -103,7 +103,7 @@ class UserController extends Controller
 
     public function wishlist($id)
     {
-        $wishlist = Wishlist::where('product_id', $id)
+        $wishlist = Wishlist::where('product_id', $id)->where('user_id', auth('api')->user()->id)
             ->first();
         if (!empty($wishlist)) {
             return response()->json([
@@ -123,7 +123,7 @@ class UserController extends Controller
     public function display_wishlist()
     {
         $wishlists = Product::with('images')->whereHas('wishlists', function ($query) {
-            $query->where('user_id', auth()->guard('api')->user()->id);
+            $query->where('user_id', auth('api')->user()->id);
         })->get();
 
         return response()->json([

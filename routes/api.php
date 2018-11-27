@@ -53,9 +53,10 @@ Route::get('order/status/{status?}', [
     'uses' => 'OrderController@status',
     'as' => 'order.get.status'
 ]);
-
-Route::get('/test', [
-    'uses' => 'OrderController@test',
+//apis that are related to models
+Route::post('/blogs/image_upload', [
+    'uses' => 'BlogController@blog_image',
+    'as' => 'blog.images'
 ]);
 
 Route::apiResources([
@@ -64,5 +65,6 @@ Route::apiResources([
     'brands' => 'BrandController',
     'coupons' => 'CouponController',
     'sliders' => 'SliderController',
-    'orders' => "OrderController"
+    'orders' => "OrderController",
+    'blogs' => 'BlogController',
 ]);

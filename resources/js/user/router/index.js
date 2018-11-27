@@ -5,7 +5,8 @@ import store from '../store/store'
 // views
 import Home from '../components/home/Home'
 import ConstactUs from '../components/ContactUs'
-import Blog from '../components/blog/Blog'
+import Blog from '../components/blog/index'
+import BlogId from '../components/blog/show'
 import Shop from '../components/store/Shop'
 import Single from '../components/store/Single'
 import Checkout from "../components/checkout/Checkout"
@@ -14,6 +15,9 @@ import Profile from '../components/auth/Profile'
 import Wishlist from '../components/auth/Wishlist'
 import Login from '../components/auth/Login'
 import Register from '../components/auth/Register'
+
+//not NotFound
+import NotFound from '../components/NotFound'
 
 Vue.use(VueRouter)
 Vue.use(store)
@@ -96,7 +100,22 @@ const router = new VueRouter({
         }, {
             path: '/blog',
             name: 'Blog',
-            component: Blog
+            component: Blog,
+            meta: {
+                title: 'Blog'
+            }
+        },
+        {
+            path: '/blog/:id',
+            name: 'BlogId',
+            component: BlogId,
+            meta: {
+                title: 'Blog'
+            }
+        },
+        {
+            path: '*',
+            component: NotFound
         }
     ]
 })

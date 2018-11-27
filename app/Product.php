@@ -46,8 +46,6 @@ class Product extends Model
     {
         $array = $this->toArray();
         $extraFields = [
-            'categories' => $this->categories->pluck('name')->toArray(),
-            'brands' => $this->brands->pluck('brand_name')->toArray(),
             'images' => $this->images->pluck('file')->toArray(),
         ];
         return array_merge($array, $extraFields);

@@ -43,8 +43,10 @@ import EditBrand from '../views/brands/edit'
 import FormCoupon from '../views/coupons/form'
 import EditCoupon from '../views/coupons/edit'
 
+// blogs
+import FormBlog from '../views/blogs/form'
+import EditBlog from '../views/blogs/edit'
 // order
-import EditOrder from '../views/orders/edit'
 import SingleOrder from '../views/orders/single'
 import StatusOrder from '../views/orders/status'
 
@@ -315,6 +317,39 @@ const router = new Router({
                             path: 'single-coupon/:id',
                             name: 'Single Coupon',
                             component: FormCoupon,
+                            meta: {
+                                mode: 'edit'
+                            }
+                        }
+                    ]
+                },
+                {
+                    path: 'blogs',
+                    redirect: '/blogs/create',
+                    name: 'Blogs',
+                    component: {
+                        render(c) {
+                            return c('router-view')
+                        }
+                    },
+                    children: [{
+                            path: 'create-blog',
+                            name: 'Create Blog',
+                            component: FormBlog,
+                            meta: {
+                                mode: 'create'
+                            }
+                        },
+                        {
+                            path: 'edit-blog',
+                            name: 'Edit Blog',
+                            component: EditBlog
+
+                        },
+                        {
+                            path: 'single-blog/:id',
+                            name: 'Single Blog',
+                            component: FormBlog,
                             meta: {
                                 mode: 'edit'
                             }

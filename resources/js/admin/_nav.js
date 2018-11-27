@@ -150,6 +150,22 @@ export default {
             ]
         },
         {
+            name: 'Blogs',
+            url: '/blogs',
+            icon: 'icon-star',
+            children: [{
+                    name: 'Create Blog',
+                    url: '/blogs/create-blog',
+                    icon: 'icon-star'
+                },
+                {
+                    name: 'Edit Blog',
+                    url: '/blogs/edit-blog',
+                    icon: 'icon-star'
+                }
+            ]
+        },
+        {
             name: 'Orders',
             url: '/orders',
             icon: 'icon-star',

@@ -51,7 +51,8 @@ export default {
             localStorage.setItem('user', JSON.stringify(state.currentUser))
             router.push('/')
         },
-        logout() {
+        logout(state) {
+            state.currentUser = null
             localStorage.removeItem("user")
         },
         loginFailed(state) {
@@ -90,5 +91,13 @@ export default {
                     commit("RegisterFailed", error)
                 })
         },
+        logout({
+            commit
+        }) {
+            axios.post('/api/auth/logout')
+                .then(() => {
+                    commit("logout")
+                })
+        }
     }
 }

@@ -10,6 +10,11 @@ class Category extends Model
         'name', 'slug', 'image',
     ];
 
+    public function products()
+    {
+        return $this->belongsToMany('App\Product');
+    }
+
     public function parent()
     {
         return $this->belongsTo('App\Category', 'category_id');
