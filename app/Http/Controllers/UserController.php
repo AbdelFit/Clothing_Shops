@@ -162,4 +162,28 @@ class UserController extends Controller
     {
         return Auth::Guard('api');
     }
+
+    /**
+     * Display a listing of worker notification.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function notification()
+    {
+        $user_notif = auth('api')->user()
+            ->unreadNotifications()
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->toArray();
+
+        return response()->json([
+            'notifications' => $user_notif
+        ]);
+    }
+
+    public function markAsRead($id)
+    {
+        $notifications = auth('api')->user()->unreadNotifications->where('id', $id)->markAsRead();
+        return response()->json([], 200);
+    }
 }

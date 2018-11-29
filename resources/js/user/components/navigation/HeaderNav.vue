@@ -37,17 +37,38 @@
                 </router-link>
               </div>
             </b-nav-item>
-            <b-nav-item href="#">
+            <b-nav-item>
               <div class="user-login-info">
                 <router-link to="/profile">
                   <img class="user" src="/images/user.svg" alt>
                 </router-link>
               </div>
             </b-nav-item>
-            <b-nav-item href="#">
+            <b-nav-item>
               <div class="user-login-info">
                 <a @click="logout()">Logout</a>
               </div>
+            </b-nav-item>
+            <b-nav-item>
+              <b-nav-item-dropdown right>
+                <template slot="button-content">
+                  <i class="fa fa-bell"></i>
+                  <span class="badge badge-pill badge-danger">
+                    {{
+                    this.notifications.length
+                    }}
+                  </span>
+                </template>
+                <b-dropdown-header tag="div" class="text-center">
+                  <strong>Notifications</strong>
+                </b-dropdown-header>
+                <b-dropdown-item v-for="notification in notifications" :key="notification.id">
+                  <a
+                    href
+                    @click="markAsRead(notification.id, notification.data.order.id)"
+                  >Your order number {{notification.data.order.random}} has been {{notification.data.order.status}}</a>
+                </b-dropdown-item>
+              </b-nav-item-dropdown>
             </b-nav-item>
           </template>
           <b-nav-item>
@@ -122,6 +143,11 @@ export default {
     appMenu: MegaMenu,
     AlgoliaSearch
   },
+  data() {
+    return {
+      notifications: []
+    };
+  },
   computed: {
     carts() {
       return this.$store.getters.carts;
@@ -133,6 +159,8 @@ export default {
           this.logout();
           return;
         }
+        this.getNotification();
+
         return this.$store.getters.currentUser;
       }
     },
@@ -140,7 +168,30 @@ export default {
       return this.$store.getters.CountCart;
     }
   },
+  created() {
+    if (this.$store.getters.currentUser) {
+      Echo.private("App.User.1").notification(notification => {
+        let newNotifications = {
+          data: {
+            product: notification.product
+          }
+        };
+        this.notifications.push(newNotifications);
+      });
+    }
+  },
   methods: {
+    getNotification() {
+      axios.get("/api/user/notification").then(result => {
+        this.notifications = result.data.notifications;
+      });
+    },
+    markAsRead(id, product_id) {
+      axios.get("/api/user/markAsRead/" + id).then(response => {
+        this.$router.push("/profile");
+        this.getNotification();
+      });
+    },
     logout() {
       this.$store.dispatch("logout");
     },

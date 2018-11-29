@@ -48,6 +48,14 @@ Route::get('/wishlists', [
     'as' => 'user.wishlist.get'
 ]);
 
+//user
+Route::get('/user/notification', [
+    'uses' => 'UserController@notification'
+]);
+
+Route::get('/user/markAsRead/{id}', [
+    'uses' => 'UserController@markAsRead'
+]);
 //order
 Route::get('order/status/{status?}', [
     'uses' => 'OrderController@status',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Product;
+use App\User;
 use App\OrderProduct;
 use Illuminate\Http\Request;
 use Auth;
@@ -12,6 +13,7 @@ use App\Mail\OrderPlaced;
 use Illuminate\Support\Facades\Mail;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Cartalyst\Stripe\Exception\CardErrorException;
+use App\Notifications\UserNot;
 
 class OrderController extends Controller
 {
@@ -110,8 +112,11 @@ class OrderController extends Controller
     public function update(Request $request)
     {
         if (!empty($request->status)) {
-            $order = Order::where('id', $request->id)->update(['status' => $request->status]);
+            Order::where('id', $request->id)->update(['status' => $request->status]);
+            $order = Order::findOrFail($request->id);
+            $user = User::where('email', $order->billing_email)->first();
             //Mail::send(new OrderPlaced($order, $request->status));
+            $user->notify(new UserNot($order));
 
             return response()->json([
                 'success' => true,
