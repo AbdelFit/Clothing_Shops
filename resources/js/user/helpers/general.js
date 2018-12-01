@@ -12,6 +12,8 @@
            if (error.response.status === 401) {
                store.commit('logout')
                router.push('/login')
+           } else if (error.response.status === 404) {
+               router.push('/404')
            }
            return Promise.reject(error)
        })

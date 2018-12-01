@@ -1,18 +1,21 @@
 <template>
-    <b-form @submit.prevent="authenticate" @reset="onReset" class="form-center">
-      <h3>Login </h3>
-      <h6 class='text-danger'>{{ error }}</h6>
-      <b-form-group label="Email address:" label-for="email">
-        <b-form-input id="email" v-model="form.email" type="email" placeholder="Enter email">
-        </b-form-input>
-      </b-form-group>
-      <b-form-group label="Your Name:" label-for="password">
-        <b-form-input id="password" v-model="form.password" type="password" placeholder="Enter password" >
-        </b-form-input>
-      </b-form-group>
-      <button type="submit" class="btn btn-primary" :disabled="loading">Submit</button>
-      <button type="reset" class="btn btn-danger">Reset</button>
-    </b-form>
+  <b-form @submit.prevent="authenticate" @reset="onReset" class="form-center">
+    <h3>Login</h3>
+    <h6 class="text-danger">{{ error }}</h6>
+    <b-form-group label="Email address:" label-for="email">
+      <b-form-input id="email" v-model="form.email" type="email" placeholder="Enter email"></b-form-input>
+    </b-form-group>
+    <b-form-group label="Your Name:" label-for="password">
+      <b-form-input
+        id="password"
+        v-model="form.password"
+        type="password"
+        placeholder="Enter password"
+      ></b-form-input>
+    </b-form-group>
+    <button type="submit" class="btn btn-primary" :disabled="loading">Submit</button>
+    <button type="reset" class="btn btn-danger">Reset</button>
+  </b-form>
 </template>
 <script>
 import { login } from "../../helpers/api.js";

@@ -34,7 +34,7 @@ class LandingPageController extends Controller
         $brands = [];
         $categories = [];
         //gets categories and brands ids that are related to category name
-        $category_id = Category::where('slug', $category_name)->first();
+        $category_id = Category::where('slug', $category_name)->firstOrFail();
         $categories[] = $category_id;
         $category_products = DB::table('category_product')
             ->where('parent_id', $category_id->id)
