@@ -72907,6 +72907,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -72966,49 +72975,64 @@ var render = function() {
             _c(
               "div",
               { staticClass: "product-img" },
-              _vm._l(product.images, function(img, index) {
-                return _c("div", { key: img.id }, [
-                  index === 0
-                    ? _c("div", [
-                        _c("img", {
-                          attrs: {
-                            src: "/storage/images_product/" + img.file,
-                            alt: ""
-                          }
-                        })
-                      ])
-                    : index === 1
+              [
+                _vm._v("\n        " + _vm._s(product.images) + "\n        "),
+                _vm._l(product.images, function(img, index) {
+                  return _c("div", { key: img.id }, [
+                    _c("img", {
+                      attrs: {
+                        src: "/storage/images_product/" + img.file,
+                        alt: ""
+                      }
+                    }),
+                    _vm._v(" "),
+                    index === 0
                       ? _c("div", [
                           _c("img", {
-                            staticClass: "hover-img",
                             attrs: {
                               src: "/storage/images_product/" + img.file,
                               alt: ""
                             }
                           })
                         ])
+                      : index === 1
+                        ? _c("div", [
+                            _c("img", {
+                              staticClass: "hover-img",
+                              attrs: {
+                                src: "/storage/images_product/" + img.file,
+                                alt: ""
+                              }
+                            })
+                          ])
+                        : _vm._e(),
+                    _vm._v(" "),
+                    product.old_price
+                      ? _c(
+                          "div",
+                          { staticClass: "product-badge offer-badge" },
+                          [
+                            _c("span", [
+                              _vm._v(_vm._s(product.percentage_off) + "%")
+                            ])
+                          ]
+                        )
                       : _vm._e(),
-                  _vm._v(" "),
-                  product.old_price
-                    ? _c("div", { staticClass: "product-badge offer-badge" }, [
-                        _c("span", [
-                          _vm._v(_vm._s(product.percentage_off) + "%")
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "product-favourite" }, [
-                    _c("a", {
-                      staticClass: "favme fa fa-heart",
-                      on: {
-                        click: function($event) {
-                          _vm.wishlist(product.id)
+                    _vm._v(" "),
+                    _c("div", { staticClass: "product-favourite" }, [
+                      _c("a", {
+                        staticClass: "favme fa fa-heart",
+                        on: {
+                          click: function($event) {
+                            _vm.wishlist(product.id)
+                          }
                         }
-                      }
-                    })
+                      })
+                    ])
                   ])
-                ])
-              })
+                })
+              ],
+              2
             ),
             _vm._v(" "),
             _c(
@@ -73026,22 +73050,25 @@ var render = function() {
                 _c("p", { staticClass: "product-price" }, [
                   _c("span", { staticClass: "old-price" }, [
                     _vm._v(
-                      _vm._s(_vm.currency_info.currency) +
+                      "\n            " +
+                        _vm._s(_vm.currency_info.currency) +
                         " " +
                         _vm._s(
                           (product.old_price * _vm.currency_info.rate).toFixed(
                             0
                           )
-                        )
+                        ) +
+                        "\n          "
                     )
                   ]),
                   _vm._v(
-                    " " +
+                    "\n          " +
                       _vm._s(_vm.currency_info.currency) +
                       " " +
                       _vm._s(
                         (product.price * _vm.currency_info.rate).toFixed(0)
-                      )
+                      ) +
+                      "\n        "
                   )
                 ]),
                 _vm._v(" "),
@@ -73062,7 +73089,11 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("Add\n                            to Cart")]
+                      [
+                        _vm._v(
+                          "\n              Add\n              to Cart\n            "
+                        )
+                      ]
                     )
                   ])
                 ])
