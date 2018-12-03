@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Brand;
 use App\Slider;
-use App\product;
+use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +13,7 @@ class LandingPageController extends Controller
 {
     public function index()
     {
-        $popular_products = product::with('images')
+        $popular_products = Product::with('images')
             ->limit(10)
             ->get();
 
@@ -57,7 +57,7 @@ class LandingPageController extends Controller
         $categories_slug = $categories_slugs->push($category_name);
 
         //a mix of search for related products
-        $products = product::with('brands', 'images', 'categories.children', 'wishlists')
+        $products = Product::with('brands', 'images', 'categories.children', 'wishlists')
             ->whereHas('categories', function ($query) use ($categories_slug) {
                 $query->whereIn('slug', $categories_slug);
             })
