@@ -39,7 +39,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             'bindings',
-            \Barryvdh\Cors\HandleCors::class,
+            \Spatie\Cors\Cors::class
         ],
     ];
 
@@ -59,10 +59,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'cors' => [
-            \Barryvdh\Cors\HandleCors::class,
-        ],
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class
     ];
 
     /**
