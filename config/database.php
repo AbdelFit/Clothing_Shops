@@ -15,7 +15,7 @@ return [
     | you may use many connections at once using the Database library.
     |
  */
-    'default' => 'pgsql',
+    'default' => 'mysql',
     /*
     |--------------------------------------------------------------------------
     | Database Connections

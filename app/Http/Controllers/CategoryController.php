@@ -51,13 +51,13 @@ class CategoryController extends Controller
         $category = new Category();
         $category->name = $request->name;
         $category->slug = str_replace(' ', '-', $request->slug);
-        $category->category_id = $request->cateogry_radio;
+        $category->category_id = $request->category_radio;
         $category->image = $name;
         $category->save();
 
         return response()
             ->json([
-                'saved' => true
+                'saved' => true,
             ], 200);
     }
 
