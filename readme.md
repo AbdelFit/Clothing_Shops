@@ -28,7 +28,7 @@ npm install
 You can loggin as an admin using this email and password (/admin)
 
 ```
-email: adlin@admin.com
+email: admin@admin.com
 password: admin
 ```
 
