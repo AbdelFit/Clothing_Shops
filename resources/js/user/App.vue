@@ -1,9 +1,10 @@
 <template>
     <div>
-        <app-header-nav></app-header-nav>
+        <app-header-nav />
         <transition name="fade">
             <router-view :key="$route.fullPath" />
         </transition>
+        <app-footer />
     </div>
 </template>
 <script>

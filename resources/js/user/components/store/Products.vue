@@ -5,15 +5,13 @@
       <div class="single-product-wrapper">
         <!-- Product Image -->
         <div class="product-img">
-          {{product.images}}
           <div v-for="(img, index) in product.images" :key="img.id">
-            <img :src="'/storage/images_product/' + img.file" alt>
             <div v-if="index === 0">
-              <img :src="'/storage/images_product/' + img.file" alt>
+              <img :src="`/storage/images_product/${img.file}`" alt>
             </div>
             <!-- Hover Thumb -->
             <div v-else-if="index === 1">
-              <img class="hover-img" :src="'/storage/images_product/' + img.file" alt>
+              <img class="hover-img" :src="`/storage/images_product/${img.file}`" alt>
             </div>
             <!-- Product Badge -->
             <div class="product-badge offer-badge" v-if="product.old_price">
@@ -80,7 +78,7 @@ export default {
         id,
         count: 1
       });
-      this.$toaster.success("You have successfully added " + name);
+      this.$toaster.success(`You have successfully added ${name}`);
     },
     heartClass(wishlist_id) {
       return {
@@ -89,7 +87,7 @@ export default {
     },
     wishlist(id) {
       axios
-        .post("/api/wishlist/" + id, id)
+        .post(`/api/wishlist/${id}`, id)
         .then(res => {
           this.$toaster.success(
             "You have successfully added this item to your wishlist"

@@ -16,7 +16,7 @@ import Wishlist from '../components/auth/Wishlist'
 import Login from '../components/auth/Login'
 import Register from '../components/auth/Register'
 
-//not NotFound
+import Thankyou from '../components/thankyou'
 import NotFound from '../components/NotFound'
 
 Vue.use(VueRouter)
@@ -114,6 +114,9 @@ const router = new VueRouter({
             }
         },
         {
+            path: '/thankyou',
+            component: Thankyou
+        }, {
             path: '*',
             component: NotFound
         }

@@ -1,7 +1,6 @@
 <?php
 
-use App\Brand;
-use App\Category;
+use App\Admin;
 use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
@@ -18,7 +17,7 @@ class AdminsTableSeeder extends Seeder
         $now = Carbon::now()->toDateTimeString();
 
         Admin::insert([
-            ['name' => "abdel", 'email' => "fouhamtrance@gmail.com", 'password' => bcrypt('djtrancerboy'), 'created_at' => $now, 'updated_at' => $now],
+            ['name' => "admin", 'email' => "admin@admin.com", 'password' => bcrypt('admin'), 'created_at' => $now, 'updated_at' => $now],
         ]);
     }
 }

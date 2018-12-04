@@ -1,8 +1,14 @@
 <template>
-    <div class="aa-input-container" id="aa-input-container">
-        <input type="search" id="aa-search-input" class="aa-input-search"  name="search" placeholder="Search..."
-            autocomplete="off" />
-    </div>
+  <div class="aa-input-container" id="aa-input-container">
+    <input
+      type="search"
+      id="aa-search-input"
+      class="aa-input-search"
+      name="search"
+      placeholder="Search..."
+      autocomplete="off"
+    >
+  </div>
 </template>
 <style lang="scss">
 .aa-input-container {
@@ -58,10 +64,6 @@ export default {
         templates: {
           //'suggestion' templating function used to render a single suggestion
           suggestion: function(suggestion) {
-            console.log(
-              "http://localhost:3000/storage/product_images/" +
-                suggestion.images[0]
-            );
             const markup = `
                                 <div class="algolia-result">
                                   <div>
@@ -76,8 +78,6 @@ export default {
                                   <div >
                                     <div>${suggestion.name}</div>
                                     <div>$${suggestion.price.toFixed(2)}</div>
-                                    <div>${suggestion.categories[0]}</div>
-                                    <div>${suggestion.brands[0]}</div>
                                   </div>
                                 </div>
                             `;

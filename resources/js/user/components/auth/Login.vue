@@ -55,12 +55,10 @@ export default {
 }
 
 .form-center {
+  margin: 0 auto;
+  margin-top: 200px !important;
+  margin-bottom: 200px !important;
   width: 35%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
   padding: 30px;
   box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }

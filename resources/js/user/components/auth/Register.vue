@@ -1,24 +1,26 @@
 <template>
-    <b-form @submit.prevent="Register" @reset="onReset" class="form-center">
-        <h3>Register</h3>
-        <b-form-group label="Name:" label-for="email">
-            <b-form-input id="name" v-model="form.name" type="text" placeholder="Enter name">
-            </b-form-input>
-            <span class="text-danger" v-if="error.name">{{ error.name[0] }}</span>
-        </b-form-group>
-        <b-form-group label="Email address:" label-for="email">
-            <b-form-input id="email" v-model="form.email" type="email" placeholder="Enter email">
-            </b-form-input>
-            <span class="text-danger" v-if="error.email">{{ error.email[0] }}</span>
-        </b-form-group>
-        <b-form-group label="Password:" label-for="password">
-            <b-form-input id="password" v-model="form.password" type="password" placeholder="Enter password">
-            </b-form-input>
-            <span class="text-danger" v-if="error.password">{{ error.password[0] }}</span>
-        </b-form-group>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-danger" @click="onReset">Reset</button>
-    </b-form>
+  <b-form @submit.prevent="Register" @reset="onReset" class="form-center">
+    <h3>Register</h3>
+    <b-form-group label="Name:" label-for="email">
+      <b-form-input id="name" v-model="form.name" type="text" placeholder="Enter name"></b-form-input>
+      <span class="text-danger" v-if="error.name">{{ error.name[0] }}</span>
+    </b-form-group>
+    <b-form-group label="Email address:" label-for="email">
+      <b-form-input id="email" v-model="form.email" type="email" placeholder="Enter email"></b-form-input>
+      <span class="text-danger" v-if="error.email">{{ error.email[0] }}</span>
+    </b-form-group>
+    <b-form-group label="Password:" label-for="password">
+      <b-form-input
+        id="password"
+        v-model="form.password"
+        type="password"
+        placeholder="Enter password"
+      ></b-form-input>
+      <span class="text-danger" v-if="error.password">{{ error.password[0] }}</span>
+    </b-form-group>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="reset" class="btn btn-danger" @click="onReset">Reset</button>
+  </b-form>
 </template>
 <script>
 export default {
@@ -58,12 +60,10 @@ export default {
 }
 
 .form-center {
+  margin: 0 auto;
+  margin-top: 200px !important;
+  margin-bottom: 200px !important;
   width: 35%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
   padding: 30px;
   box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }

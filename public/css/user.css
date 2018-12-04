@@ -45,10 +45,8 @@ a {
     transition: all 500ms ease 0s;
     text-decoration: none;
     outline: 0 solid transparent;
-    color: #000000;
+    color: #000000 !important;
     font-weight: 600;
-    font-size: 12px;
-
 }
 
 a:hover,
@@ -57,9 +55,8 @@ a:focus {
     transition: all 500ms ease 0s;
     text-decoration: none !important;
     outline: 0 solid transparent;
-    color: #000000;
+    color: #000000 !important;
     font-weight: 600;
-    font-size: 12px;
 }
 
 ul,

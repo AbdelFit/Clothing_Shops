@@ -13,9 +13,6 @@
           <b-nav-item>
             <router-link to="/blog">Blog</router-link>
           </b-nav-item>
-          <b-nav-item>
-            <router-link to="/contact-us">Contact Us</router-link>
-          </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -170,10 +167,12 @@ export default {
   },
   created() {
     if (this.$store.getters.currentUser) {
-      Echo.private("App.User.1").notification(notification => {
+      Echo.private(
+        `App.User.${this.$store.getters.currentUser.id}`
+      ).notification(notification => {
         let newNotifications = {
           data: {
-            product: notification.product
+            order: notification.order
           }
         };
         this.notifications.push(newNotifications);
@@ -187,7 +186,7 @@ export default {
       });
     },
     markAsRead(id, product_id) {
-      axios.get("/api/user/markAsRead/" + id).then(response => {
+      axios.get(`/api/user/markAsRead/${id}`).then(response => {
         this.$router.push("/profile");
         this.getNotification();
       });

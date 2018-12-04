@@ -39,7 +39,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             'bindings',
-            \Spatie\Cors\Cors::class
+            \Barryvdh\Cors\HandleCors::class,
         ],
     ];
 
