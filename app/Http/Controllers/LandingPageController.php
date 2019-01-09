@@ -37,9 +37,7 @@ class LandingPageController extends Controller
             ->orWhere('category_id', $category_id->id)
             ->join('brand_product', 'category_product.product_id', '=', 'brand_product.product_id');
 
-
         $brands = Brand::whereIn('id', $category_products->pluck('brand_id'))->get();
-
         $categories = Category::whereIn('id', $category_products->pluck('category_id'))->get();
 
         //pushing all related categories names together in case of selecting the parent id
