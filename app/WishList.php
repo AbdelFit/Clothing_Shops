@@ -10,4 +10,9 @@ class WishList extends Model
     {
         return $this->hasMany('App\users');
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

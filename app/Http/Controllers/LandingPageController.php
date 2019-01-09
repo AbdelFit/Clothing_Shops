@@ -30,25 +30,17 @@ class LandingPageController extends Controller
 
     public function shop($category_name)
     {
-        $brands = [];
-        $categories = [];
         //gets categories and brands ids that are related to category name
         $category_id = Category::where('slug', $category_name)->firstOrFail();
-        $categories[] = $category_id;
         $category_products = DB::table('category_product')
             ->where('parent_id', $category_id->id)
             ->orWhere('category_id', $category_id->id)
-            ->join('brand_product', 'category_product.product_id', '=', 'brand_product.product_id')
-            ->get();
-        //storing the values in brands and categories arrays
-        foreach ($category_products as $category_product) {
-            $brand = Brand::where('id', $category_product->brand_id)
-                ->first();
-            $brands[] = $brand;
-            $category = Category::where('id', $category_product->category_id)
-                ->first();
-            $categories[] = $category;
-        }
+            ->join('brand_product', 'category_product.product_id', '=', 'brand_product.product_id');
+
+
+        $brands = Brand::whereIn('id', $category_products->pluck('brand_id'))->get();
+
+        $categories = Category::whereIn('id', $category_products->pluck('category_id'))->get();
 
         //pushing all related categories names together in case of selecting the parent id
         $categories_slugs = Category::where('category_id', $category_id->id)
@@ -56,27 +48,10 @@ class LandingPageController extends Controller
         $categories_slug = $categories_slugs->push($category_name);
 
         //a mix of search for related products
-        $products = Product::with('brands', 'images', 'categories.children', 'wishlists')
-            ->whereHas('categories', function ($query) use ($categories_slug) {
-                $query->whereIn('slug', $categories_slug);
-            })
-            ->when(request()->brand_name, function ($query) {
-                $query->whereHas('brands', function ($query) {
-                    $query->where('brand_name', request()->brand_name);
-                });
-            })
-            ->when(request()->q, function ($query) {
-                return $query->where('name', 'like', '%' . request()->q . '%');
-            })
-            ->when(request()->selected, function ($query) {
-                if (request()->selected === 'low') {
-                    return $query->orderBy('price');
-                } elseif (request()->selected === 'hight') {
-                    return $query->orderBy('price', 'desc');
-                } elseif (request()->selected === 'newest') {
-                    return $query->orderBy('created_at', 'desc');
-                }
-            })
+        $products = Product::category($categories_slug)
+            ->brand(request()->brand_name)
+            ->search(request()->q)
+            ->price(request()->selected)
             ->orderBy('created_at', 'desc')
             ->paginate(20);
 
@@ -84,8 +59,8 @@ class LandingPageController extends Controller
             ->json([
                 'currency_info' => currency_changer(),
                 'products' => $products,
-                'brands' => array_unique($brands),
-                'categories' => array_unique($categories),
+                'brands' => $brands,
+                'categories' => $categories,
             ]);
 
     }

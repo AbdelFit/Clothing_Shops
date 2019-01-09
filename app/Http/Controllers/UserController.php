@@ -121,7 +121,7 @@ class UserController extends Controller
 
     public function display_wishlist()
     {
-        $wishlists = Product::with('images')->whereHas('wishlists', function ($query) {
+        $wishlists = Product::whereHas('wishlists', function ($query) {
             $query->where('user_id', auth('api')->user()->id);
         })->get();
 

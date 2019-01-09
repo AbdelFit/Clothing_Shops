@@ -7,17 +7,17 @@ use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
-    use Searchable;
+    use Searchable, ScopeProduct;
 
-    protected $with = ["categories", "images", "brands"];
+    protected $with = ['images'];
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'description', 'slug', 'price', 'old_price', 'brand_id', 'category_id', 'images', 'updated_at', 'created_at'
-    ];
+    protected $guarded = [];
+
 
     public function categories()
     {

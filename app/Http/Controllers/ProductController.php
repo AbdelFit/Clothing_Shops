@@ -116,7 +116,6 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-
         return response()->json([
             'currency_info' => currency_changer(),
             'product' => $product,
