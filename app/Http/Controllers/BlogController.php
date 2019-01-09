@@ -62,10 +62,8 @@ class BlogController extends Controller
      * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Blog $blog)
     {
-        $blog = Blog::findOrFail($id);
-
         return response()
             ->json([
                 'blog' => $blog
@@ -80,21 +78,19 @@ class BlogController extends Controller
      * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Blog $blog)
     {
         $this->validate($request, [
             'content' => 'required',
             'title' => 'required',
         ]);
 
-        $blog = Blog::findOrFail($id);
-
         // upload image
         if ($request->hasfile('feature_image') && $request->file('feature_image')->isValid()) {
             $filename = $request->feature_image->getClientOriginalName();
             $request->feature_image->move('storage/images_feature_image/', $filename);
 
-        // remove old image
+            // remove old image
             File::delete('storage/images_feature_image/' . $blog->feature_image);
             $blog->feature_image = $filename;
         }
@@ -116,10 +112,8 @@ class BlogController extends Controller
      * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Blog $blog)
     {
-        $blog = Blog::findOrFail($id);
-
         File::delete('storage/images_feature_image/' . $blog->image);
 
         $blog->delete();

@@ -67,10 +67,8 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        $category = Category::findorFail($id);
-
         return response()
             ->json([
                 'category' => $category
@@ -85,9 +83,8 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $category = Category::findOrFail($id);
         $category->name = $request->name;
         $category->slug = str_replace(' ', '-', $request->slug);
         $category->category_id = $request->category_radio;
@@ -105,9 +102,8 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        $category = Category::findOrFail($id);
         $image_path = "storage/category_image/" . $category->image;
         if (File::exists($image_path)) {
             File::delete($image_path);

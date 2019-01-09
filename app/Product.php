@@ -8,6 +8,8 @@ use Laravel\Scout\Searchable;
 class Product extends Model
 {
     use Searchable;
+
+    protected $with = ["categories", "images", "brands"];
     /**
      * The attributes that are mass assignable.
      *

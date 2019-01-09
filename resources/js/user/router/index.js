@@ -4,7 +4,6 @@ import store from '../store/store'
 
 // views
 import Home from '../components/home/Home'
-import ConstactUs from '../components/ContactUs'
 import Blog from '../components/blog/index'
 import BlogId from '../components/blog/show'
 import Shop from '../components/store/Shop'
@@ -25,101 +24,97 @@ Vue.use(store)
 const router = new VueRouter({
     mode: 'history',
     routes: [{
-            path: '/',
-            name: 'Home',
-            component: Home,
-            meta: {
-                title: 'Home'
-            }
-        },
-        {
-            path: '/shop/:category_slug',
-            name: 'Shop',
-            component: Shop,
-            meta: {
-                title: 'Shop'
-            }
-        },
-        {
-            path: '/shop/single-product/:id',
-            name: 'Single',
-            component: Single,
-            meta: {
-                title: 'Single Product'
-            }
-        },
-        {
-            path: '/checkout',
-            name: 'Checkout',
-            component: Checkout,
-            meta: {
-                forCart: true,
-                title: 'checkout'
-            }
-        },
-        {
-            path: '/profile',
-            name: 'Profile',
-            component: Profile,
-            meta: {
-                forUser: true,
-                title: 'Profile'
-            }
-        },
-        {
-            path: '/wishlist',
-            name: 'Wishlist',
-            component: Wishlist,
-            meta: {
-                forUser: true,
-                title: 'Wishlist'
-            }
-        },
-        {
-            path: '/login',
-            name: 'Login',
-            component: Login,
-            meta: {
-                forVisitros: true,
-                title: 'Login'
-            }
-        },
-        {
-            path: '/register',
-            name: 'Register',
-            component: Register,
-            meta: {
-                forVisitros: true,
-                title: 'Register'
-            }
-        },
-        {
-            path: '/contactus',
-            name: 'ConstactUs',
-            component: ConstactUs
-        }, {
-            path: '/blog',
-            name: 'Blog',
-            component: Blog,
-            meta: {
-                title: 'Blog'
-            }
-        },
-        {
-            path: '/blog/:id',
-            name: 'BlogId',
-            component: BlogId,
-            meta: {
-                title: 'Blog'
-            }
-        },
-        {
-            path: '/thankyou',
-            component: Thankyou
-        }, {
-            path: '*',
-            component: NotFound
+        path: '/',
+        name: 'Home',
+        component: Home,
+        meta: {
+            title: 'Home'
         }
+    },
+    {
+        path: '/shop/:category_slug',
+        name: 'Shop',
+        component: Shop,
+        meta: {
+            title: 'Shop'
+        }
+    },
+    {
+        path: '/shop/single-product/:id',
+        name: 'Single',
+        component: Single,
+        meta: {
+            title: 'Single Product'
+        }
+    },
+    {
+        path: '/checkout',
+        name: 'Checkout',
+        component: Checkout,
+        meta: {
+            forCart: true,
+            title: 'checkout'
+        }
+    },
+    {
+        path: '/profile',
+        name: 'Profile',
+        component: Profile,
+        meta: {
+            forUser: true,
+            title: 'Profile'
+        }
+    },
+    {
+        path: '/wishlist',
+        name: 'Wishlist',
+        component: Wishlist,
+        meta: {
+            forUser: true,
+            title: 'Wishlist'
+        }
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login,
+        meta: {
+            forVisitros: true,
+            title: 'Login'
+        }
+    },
+    {
+        path: '/register',
+        name: 'Register',
+        component: Register,
+        meta: {
+            forVisitros: true,
+            title: 'Register'
+        }
+    },
+    {
+        path: '/blog',
+        name: 'Blog',
+        component: Blog,
+        meta: {
+            title: 'Blog'
+        }
+    },
+    {
+        path: '/blog/:id',
+        name: 'BlogId',
+        component: BlogId,
+        meta: {
+            title: 'Blog'
+        }
+    },
+    {
+        path: '/thankyou',
+        component: Thankyou
+    }, {
+        path: '*',
+        component: NotFound
+    }
     ]
 })
 // middleware router
@@ -131,12 +126,15 @@ router.beforeEach((to, from, next) => {
                 path: '/'
             })
         } else next()
-    } else if (to.matched.some(record => record.meta.forCart) || to.matched.some(record => record.meta.forUser)) {
+    } else if (to.matched.some(record => record.meta.forUser)) {
         if (!store.state.auth.currentUser) {
             next({
                 path: '/login'
             })
-        } else if (!store.getters.CountCart) {
+        } else
+            next()
+    } else if (to.matched.some(record => record.meta.forCart)) {
+        if (!store.getters.CountCart) {
             next({
                 path: '/'
             })

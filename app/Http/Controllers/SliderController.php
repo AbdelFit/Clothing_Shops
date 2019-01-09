@@ -56,7 +56,7 @@ class SliderController extends Controller
      * @param  \App\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Slider $slider)
     {
         $slider = Slider::findOrFail($id);
 
@@ -72,9 +72,8 @@ class SliderController extends Controller
      * @param  \App\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function update(SliderRequest $request, $id)
+    public function update(SliderRequest $request, Slider $slider)
     {
-        $slider = Slider::findOrFail($id);
         $slider->paragraph = $request->paragraph;
         $slider->headline = $request->headline;
         $slider->category_slug = $request->category_slug;
@@ -91,10 +90,8 @@ class SliderController extends Controller
      * @param  \App\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Slider $slider)
     {
-        $slider = Slider::findOrFail($id);
-
         $image_path = "storage/images_slider/" . $slider->file;
         if (File::exists($image_path)) {
             File::delete($image_path);

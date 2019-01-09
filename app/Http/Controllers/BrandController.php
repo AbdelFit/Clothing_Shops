@@ -61,10 +61,8 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Brand $brand)
     {
-        $brand = Brand::findOrFail($id);
-
         return response()
             ->json([
                 "brand" => $brand
@@ -78,9 +76,8 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function update(BrandRequest $request, $id)
+    public function update(BrandRequest $request, Brand $brand)
     {
-        $brand = Brand::findOrFail($id);
         $brand->brand_name = $request->brand_name;
         $brand->save();
 
@@ -96,10 +93,8 @@ class BrandController extends Controller
      * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Brand $brand)
     {
-        $brand = Brand::findOrFail($id);
-
         $image_path = "storage/images_brand/" . $brand->image;
         if (File::exists($image_path)) {
             File::delete($image_path);

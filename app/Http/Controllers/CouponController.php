@@ -49,9 +49,8 @@ class CouponController extends Controller
      * @param  \App\Coupon  $coupon
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Coupon $coupon)
     {
-        $coupon = Coupon::findOrFail($id);
         return response()->json([
             'coupon' => $coupon
         ], 200);
@@ -64,9 +63,8 @@ class CouponController extends Controller
      * @param  \App\Coupon  $coupon
      * @return \Illuminate\Http\Response
      */
-    public function update(CouponRequest $request, $id)
+    public function update(CouponRequest $request, Coupon $coupon)
     {
-        $coupon = Coupon::findOrFail($id);
         $coupon->coupon = $request->coupon;
         $coupon->value = $request->value;
         $coupon->save();
@@ -85,8 +83,7 @@ class CouponController extends Controller
      */
     public function destroy($id)
     {
-        $coupon = Coupon::findOrFail($id)
-            ->delete();
+        $coupon->delete();
         return response()->json([
             'deleted' => true
         ], 200);

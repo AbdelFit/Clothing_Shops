@@ -75,9 +75,8 @@ class UserController extends Controller
      */
     public function profile()
     {
-        $orders = Order::with('products.images')
-            ->where('user_id', auth('api')->user()->id)
-            ->get();
+
+        $orders = auth()->user()->orders;
 
         return response()->json([
             'orders' => $orders
@@ -154,7 +153,7 @@ class UserController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'user' => $this->guard()->user(),
-            'expires_in' => auth()->factory()->getTTL() * 3000
+            'expires_in' => auth()->factory()->getTTL() * 3000000000
         ]);
     }
 

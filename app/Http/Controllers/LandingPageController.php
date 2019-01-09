@@ -13,8 +13,7 @@ class LandingPageController extends Controller
 {
     public function index()
     {
-        $popular_products = Product::with('images')
-            ->limit(10)
+        $popular_products = Product::limit(10)
             ->get();
 
         $sliders = Slider::limit(10)

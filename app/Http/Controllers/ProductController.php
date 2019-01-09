@@ -114,10 +114,8 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        $product = Product::with("categories", "images", "brands")
-            ->findOrFail($id);
 
         return response()->json([
             'currency_info' => currency_changer(),
@@ -132,10 +130,9 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, $id)
+    public function update(ProductRequest $request, Product $product)
     {
         $percentage_off = isset($request->old_price) ? ((($request->old_price - $request->price) / $request->old_price) * 100) : 0;
-        $product = Product::findorFail($id);
         $product->name = $request->name;
         $product->description = $request->description;
         $product->slug = $request->slug;
@@ -157,11 +154,10 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        $product = Product::where('id', $id)
-            ->delete();
-        $images = Image::where('product_id', $id)
+        $product->delete();
+        $images = Image::where('product_id', $product->id)
             ->get();
 
         foreach ($images as $image) {

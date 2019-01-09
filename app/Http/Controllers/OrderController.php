@@ -94,11 +94,8 @@ class OrderController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Order $order)
     {
-        $order = Order::with('products.images')
-            ->findOrFail($id);
-
         return response()->json([
             'order' => $order
         ]);

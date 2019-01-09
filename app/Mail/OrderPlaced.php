@@ -8,13 +8,11 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-
 class OrderPlaced extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $order;
-
     public $status;
 
     /**
@@ -38,15 +36,15 @@ class OrderPlaced extends Mailable
     {
         if ($this->status === 'verified') {
             return $this->to($this->order->billing_email, $this->order->billing_name)
-                ->subject('Order from Ri7at')
+                ->subject('Order from Shop')
                 ->view('emails.orders.verified');
         } elseif ($this->status === 'sent') {
             return $this->to($this->order->billing_email, $this->order->billing_name)
-                ->subject('Order from Ri7at')
+                ->subject('Order from Shop')
                 ->view('emails.orders.sent');
         } elseif ($this->status === 'problem') {
             return $this->to($this->order->billing_email, $this->order->billing_name)
-                ->subject('Order from Ri7at')
+                ->subject('Order from Shop')
                 ->view('emails.orders.problem');
         }
     }
